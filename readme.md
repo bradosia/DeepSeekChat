@@ -56,7 +56,20 @@ pacman -S --needed \
   mingw-w64-x86_64-python-pip \
   git
 
+# Add Python to PATH (optional if not already in shell)
+export PATH="/mingw64/bin:$PATH"
+
+echo "Checking Python version:"
+python --version
+
+echo "Upgrading pip..."
+python -m ensurepip --upgrade
+python -m pip install --upgrade pip
+
+echo "Installing required Python packages..."
 pip install requests
+
+echo "✅ All dependencies installed!"
 ```
 
 ### 2. 🛠 Build
