@@ -6,14 +6,24 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-# Find and link Qt6 Widgets
+# Set the source directory
+set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# Find Qt6
 find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
+# Add source files
 add_executable(DeepSeekChat
-    main.cpp
-    MainWindow.cpp
-    MainWindow.h
-    MainWindow.ui
+    ${SRC_DIR}/main.cpp
+    ${SRC_DIR}/MainWindow.cpp
+    ${SRC_DIR}/MainWindow.h
+    ${SRC_DIR}/MainWindow.ui
 )
 
+# Link against Qt6 Widgets
 target_link_libraries(DeepSeekChat Qt6::Widgets)
+
+# Set the working directory for runtime
+set_target_properties(DeepSeekChat PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+)

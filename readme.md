@@ -18,11 +18,12 @@ A cross-platform desktop chat interface using **Qt6 (C++20)** for the frontend a
 ```
 DeepSeekChat/
 ├── CMakeLists.txt          # Build configuration
-├── main.cpp                # App entry point
-├── MainWindow.h/.cpp       # GUI logic
-├── MainWindow.ui           # Qt Designer file
-├── python_interface.py     # Python code that queries DeepSeek
-└── README.md               # You're reading it!
+├── src/                    # All source files
+│   ├── main.cpp
+│   ├── MainWindow.cpp/h
+│   ├── MainWindow.ui
+│   └── python_interface.py
+└── README.md
 ```
 
 ---
@@ -108,7 +109,7 @@ make
 
 ## 🔐 DeepSeek API Key
 
-Edit `python_interface.py` and replace the `Authorization` header with your own key:
+Edit `src/python_interface.py` and replace the `Authorization` header with your own key:
 
 ```python
 headers = {
@@ -121,16 +122,10 @@ headers = {
 
 ## 💡 UI Components
 
-These widgets are defined in `MainWindow.ui`:
+These widgets are defined in `src/MainWindow.ui`:
 - `QTextEdit` (name: `chatDisplay`, read-only)
 - `QLineEdit` (name: `inputBox`)
 - `QPushButton` (name: `sendButton`, text: "Send")
-
-Designed in Qt Designer. You can open it with:
-
-```bash
-designer MainWindow.ui
-```
 
 ---
 
