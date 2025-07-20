@@ -1,172 +1,127 @@
-# 🧠 DeepSeek Chat (Qt6 + C++20 + Python)
+# 🎙️ Bright Minds Discussion
 
-A cross-platform desktop chat interface using **Qt6 (C++20)** for the frontend and **Python** for backend requests to a DeepSeek LLM server. Built with **CMake**, supports **Windows (MSYS2 + MinGW)** and **macOS (Clang)**.
+An interactive AI-powered debate simulator that brings historical and modern visionaries to life through intelligent conversations. Watch Elon Musk debate Steve Jobs, or see Einstein discuss with Marie Curie - all powered by GMI Cloud AI.
 
----
+## ✨ Features
 
-## 📸 Features
+- **🎭 Personality-Driven AI**: Each speaker has unique personality traits, communication styles, and expertise areas
+- **⏱️ Real-Time Debate**: Natural 5-10 minute conversations with realistic timing and flow
+- **🎯 Topic-Focused**: Choose any debate topic and watch the AI adapt responses accordingly
+- **👥 Audience Interaction**: Interrupt the debate with questions and get responses from both speakers
+- **🎨 Modern UI**: Clean, podcast-style interface with color-coded speakers and timestamps
+- **🔧 Configurable**: Easy to add new speakers or modify existing personalities
 
-- Chat-style UI: chat log, input box, send button
-- Sends user input to DeepSeek LLM via a Python script
-- Uses `QProcess` to bridge C++ and Python
-- Designed with Qt Designer and CMake
+## 🚀 Quick Start
 
----
+### Prerequisites
+- Qt6 development environment
+- Python 3.7+
+- GMI Cloud API key
 
-## 📁 Project Structure
+### Setup
 
-```
-DeepSeekChat/
-├── CMakeLists.txt          # Build configuration
-├── src/                    # All source files
-│   ├── main.cpp
-│   ├── MainWindow.cpp/h
-│   ├── MainWindow.ui
-│   └── python_interface.py
-└── README.md
-```
+1. **Clone and build the project**:
+   ```bash
+   mkdir build && cd build
+   cmake ..
+   make
+   ```
 
----
+2. **Install Python dependencies**:
+   ```bash
+   pip install requests python-dotenv
+   ```
 
-## 🔧 Requirements
+3. **Configure your API key**:
+   Create a `.env` file in the project root:
+   ```
+   GMI_API_KEY=your_gmi_api_key_here
+   ```
 
-### ✅ Common
+4. **Run the application**:
+   ```bash
+   ./BrightMindsDiscussion
+   ```
 
-- CMake ≥ 3.16
-- Python 3.8+
-- `requests` Python library:
-  ```bash
-  pip install requests
-  ```
+## 🎮 How to Use
 
----
+1. **Select Speakers**: Choose two different speakers from the dropdown menus
+2. **Set Topic**: Enter a debate topic (e.g., "The Future of AI in Society")
+3. **Start Debate**: Click "🎬 Start Debate" to begin the conversation
+4. **Watch & Interact**: The speakers will alternate responses every 4 seconds
+5. **Ask Questions**: Type questions in the bottom field to interrupt the debate
+6. **Stop Anytime**: Click the stop button to end the debate
 
-## 🪟 Windows Build Instructions (MSYS2 + MinGW)
+## 🎭 Available Speakers
 
-### 1. 🏗 Install Dependencies
+- **Elon Musk**: Tech entrepreneur, visionary, direct communication
+- **Steve Jobs**: Design-focused, inspirational, minimalist philosophy
+- **Albert Einstein**: Analytical, philosophical, scientific approach
+- **Marie Curie**: Methodical, dedicated, pioneering scientist
+- **Nikola Tesla**: Visionary, innovative, futuristic thinking
+- **Ada Lovelace**: Analytical, poetic, mathematical pioneer
 
-Open **MSYS2 MinGW 64-bit shell** and run:
+## 🔧 Customization
 
-```bash
-pacman -Syu   # First time only
-pacman -S --needed \
-  mingw-w64-x86_64-toolchain \
-  mingw-w64-x86_64-cmake \
-  mingw-w64-x86_64-qt6-base \
-  mingw-w64-x86_64-python-pip \
-  git
+### Adding New Speakers
 
-# Add Python to PATH (optional if not already in shell)
-export PATH="/mingw64/bin:$PATH"
+Edit `speakers.json` to add new personalities:
 
-echo "Checking Python version:"
-python --version
-
-echo "Upgrading pip..."
-python -m ensurepip --upgrade
-python -m pip install --upgrade pip
-
-echo "Installing required Python packages..."
-pip install requests
-
-echo "✅ All dependencies installed!"
-```
-
-### 2. 🛠 Build
-
-```bash
-git clone https://github.com/yourname/deepseek-chat.git
-cd deepseek-chat
-mkdir build && cd build
-cmake .. -G "MinGW Makefiles"
-mingw32-make
-./DeepSeekChat.exe
-```
-
----
-
-## 🍎 macOS Build Instructions (Clang)
-
-> This uses the default macOS Clang compiler and Homebrew-installed Qt6.
-
-### 1. 📦 Install Qt6 & CMake
-
-```bash
-brew install qt cmake python
-pip3 install requests
-```
-
-> ⚠️ Qt is keg-only. You'll need to specify the Qt path manually in CMake.
-
-### 2. ⚙️ Build
-
-```bash
-git clone https://github.com/yourname/deepseek-chat.git
-cd deepseek-chat
-mkdir build && cd build
-cmake .. -DCMAKE_PREFIX_PATH="$(brew --prefix qt)"
-make
-./DeepSeekChat
-```
-
----
-
-## 🧪 Running the App
-
-1. Launch the app from terminal or double-click the binary.
-2. Type your message in the input box and press **Send**.
-3. The app uses `QProcess` to call `python_interface.py`, which queries the DeepSeek API.
-4. The AI’s response appears in the chat window.
-
----
-
-## 🔐 DeepSeek API Key
-
-Edit `src/python_interface.py` and replace the `Authorization` header with your own key:
-
-```python
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": "Bearer YOUR_API_KEY_HERE"
+```json
+{
+  "name": "Your Speaker Name",
+  "description": "Brief description of the person",
+  "style": "Communication style description",
+  "traits": ["trait1", "trait2", "trait3"],
+  "temperature": 0.7,
+  "prompt_template": "Detailed personality prompt for the AI..."
 }
 ```
 
+### Modifying Debate Parameters
+
+In `src/MainWindow.cpp`, you can adjust:
+- **Timer interval**: Change `debateTimer->setInterval(4000)` for different response speeds
+- **Max rounds**: Modify the `debateRound >= 20` condition for longer/shorter debates
+- **Response length**: Adjust `max_tokens` in the Python script
+
+## 🏗️ Architecture
+
+- **Frontend**: Qt6 C++ with modern UI design
+- **Backend**: Python script handling GMI API communication
+- **Communication**: QProcess for C++ ↔ Python integration
+- **Configuration**: JSON-based speaker profiles
+- **Real-time**: Timer-based debate orchestration
+
+## 🎯 GMI Hackathon Features
+
+- **Modular Design**: Easy to extend with more speakers or features
+- **Prompt Engineering**: Sophisticated personality simulation
+- **Real-time Interaction**: Live audience participation
+- **Scalable**: Can support more than 2 speakers in future versions
+- **API Integration**: Seamless GMI Cloud API usage
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **"GMI_API_KEY not found"**: Check your `.env` file and API key
+2. **"speakers.json not found"**: Ensure the file is in the project root
+3. **Python process errors**: Verify Python dependencies are installed
+4. **Unicode errors**: The app handles UTF-8 encoding automatically
+
+### Debug Mode
+
+Enable debug output by checking the console for detailed error messages and API responses.
+
+## 📝 License
+
+MIT License - feel free to use and modify for your projects!
+
+## 🤝 Contributing
+
+This project was created for the GMI Hackathon. Contributions and improvements are welcome!
+
 ---
 
-## 💡 UI Components
-
-These widgets are defined in `src/MainWindow.ui`:
-- `QTextEdit` (name: `chatDisplay`, read-only)
-- `QLineEdit` (name: `inputBox`)
-- `QPushButton` (name: `sendButton`, text: "Send")
-
----
-
-## 🧼 Cleanup
-
-To remove build files:
-
-```bash
-rm -rf build
-```
-
-To rebuild cleanly:
-
-```bash
-mkdir build && cd build
-cmake .. && make
-```
-
----
-
-## 📌 Notes
-
-- On macOS, you can also build universal binaries for Intel + ARM.
-- If you want to build Windows `.exe` files on macOS, consider using [MinGW-w64](https://brew.sh/) and a CMake toolchain file.
-- You may optionally replace `QProcess` with a C++ HTTP client (like Boost.Beast) for direct API access if Python is not preferred.
-
----
-
-## 📜 License
-
-MIT License – Free to use, modify, and distribute.
+**Made with ❤️ for the GMI Hackathon**

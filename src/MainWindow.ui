@@ -3,39 +3,142 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>500</width>
-    <height>400</height>
-   </rect>
+   <rect><x>0</x><y>0</y><width>1200</width><height>800</height></rect>
   </property>
-  <property name="windowTitle">
-   <string>DeepSeek Chat</string>
-  </property>
+  <property name="windowTitle"><string>Bright Minds Discussion</string></property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="2,0,0">
+   <layout class="QVBoxLayout" name="mainLayout">
     <item>
-     <widget class="QTextEdit" name="chatDisplay">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="headerLayout">
+      <item>
+       <widget class="QLabel" name="titleLabel">
+        <property name="text"><string>Bright Minds Discussion</string></property>
+        <property name="alignment"><set>Qt::AlignCenter</set></property>
+        <property name="styleSheet"><string>font-size: 24px; font-weight: bold; color: #2c3e50;</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="userLabel">
+        <property name="text"><string>User: Aleksander</string></property>
+        <property name="styleSheet"><string>color: #7f8c8d;</string></property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QLineEdit" name="inputBox"/>
+     <layout class="QHBoxLayout" name="controlLayout">
+      <item>
+       <widget class="QLabel" name="speaker1Label">
+        <property name="text"><string>Speaker 1:</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="speaker1ComboBox">
+        <property name="minimumWidth"><number>150</number></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="startButton">
+        <property name="text"><string>Start Debate</string></property>
+        <property name="styleSheet"><string>background-color: #27ae60; color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold;</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="speaker2Label">
+        <property name="text"><string>Speaker 2:</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="speaker2ComboBox">
+        <property name="minimumWidth"><number>150</number></property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="sendButton">
-      <property name="text">
-       <string>Send</string>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="topicLayout">
+      <item>
+       <widget class="QLabel" name="topicLabel">
+        <property name="text"><string>Topic:</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="topicInput">
+        <property name="placeholderText"><string>Enter the debate topic (e.g., "The Future of AI in Society")</string></property>
+        <property name="styleSheet"><string>padding: 8px; border: 2px solid #bdc3c7; border-radius: 4px;</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="generateTopicButton">
+        <property name="text"><string>Generate Topic</string></property>
+        <property name="styleSheet"><string>background-color: #9b59b6; color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold;</string></property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="chatAndDebugLayout">
+      <item>
+       <layout class="QVBoxLayout" name="chatLayout">
+        <item>
+         <widget class="QTextEdit" name="unifiedChat">
+          <property name="readOnly"><bool>true</bool></property>
+          <property name="styleSheet"><string>border: 2px solid #bdc3c7; border-radius: 8px; padding: 10px; background-color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif;</string></property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="inputLayout">
+          <item>
+           <widget class="QLineEdit" name="questionInput">
+            <property name="placeholderText"><string>Type your question to interrupt the debate...</string></property>
+            <property name="styleSheet"><string>padding: 8px; border: 2px solid #f39c12; border-radius: 4px;</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="sendButton">
+            <property name="text"><string>Send</string></property>
+            <property name="styleSheet"><string>background-color: #f39c12; color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold;</string></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QWidget" name="debugPanel">
+        <property name="maximumWidth"><number>300</number></property>
+        <property name="minimumWidth"><number>200</number></property>
+        <layout class="QVBoxLayout" name="debugLayout">
+         <item>
+          <layout class="QHBoxLayout" name="debugHeaderLayout">
+           <item>
+            <widget class="QLabel" name="debugLabel">
+             <property name="text"><string>Debug Log</string></property>
+             <property name="styleSheet"><string>font-weight: bold; color: #7f8c8d;</string></property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="toggleDebugButton">
+             <property name="text"><string>−</string></property>
+             <property name="maximumWidth"><number>30</number></property>
+             <property name="styleSheet"><string>background-color: #95a5a6; color: white; padding: 4px; border-radius: 2px; font-weight: bold;</string></property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="debugLog">
+           <property name="readOnly"><bool>true</bool></property>
+           <property name="styleSheet"><string>border: 1px solid #bdc3c7; border-radius: 4px; padding: 8px; background-color: #f8f9fa; font-family: 'Consolas', 'Monaco', monospace; font-size: 11px;</string></property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
